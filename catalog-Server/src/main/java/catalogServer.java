@@ -1,4 +1,3 @@
-package backEnd;
 
 import static spark.Spark.*;
 
@@ -33,7 +32,7 @@ public class catalogServer {
 		 searchResponse ="[";
 		 comma="";
 		 f = 0;
-		  try (CSVReader reader = new CSVReader(new FileReader("C:\\Users\\USER\\git\\A-Multi-tier-Online-Book-Store\\my-app\\src\\main\\java\\backEnd\\catalogDatabase.CSV"))) {
+		  try (CSVReader reader = new CSVReader(new FileReader("C:\\Users\\USER\\eclipse-workspace\\catalog-Server\\src\\main\\java\\catalogDatabase.CSV"))) {
 			   List<String[]> r = reader.readAll();
 			      r.forEach(x -> ifTopicFound(x,topic)); } 
 		  searchResponse += "\n]"; 
@@ -53,7 +52,7 @@ public class catalogServer {
 	 
 	 static String searchForIteam(String iteam) throws IOException, CsvException {
 		 iteamResponse="\n  {\n     \"message\": \"This item does not exist!"+"\"\n  }";
-		  try (CSVReader reader = new CSVReader(new FileReader("C:\\Users\\USER\\git\\A-Multi-tier-Online-Book-Store\\my-app\\src\\main\\java\\backEnd\\catalogDatabase.CSV"))) {
+		  try (CSVReader reader = new CSVReader(new FileReader("C:\\Users\\USER\\eclipse-workspace\\catalog-Server\\src\\main\\java\\catalogDatabase.CSV"))) {
 			   List<String[]> r = reader.readAll();
 			   f = 0;
 			   for( String[] arry: r) {
