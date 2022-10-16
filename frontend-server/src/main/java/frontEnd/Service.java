@@ -20,7 +20,7 @@ public class Service implements UserService {
 		
 		URI searchURI=null;
 		try {
-			searchURI = new URI("http://"+frontEndServer.CATALOG_IP_ADDRESS+":"+frontEndServer.CATALOG_PORT+"/query/search/"+URLEncoder.encode(topic, StandardCharsets.UTF_8));
+			searchURI = new URI("http://"+frontEndServer.CATALOG_IP_ADDRESS+":"+frontEndServer.CATALOG_PORT+"/query/topic/"+URLEncoder.encode(topic, StandardCharsets.UTF_8));
 			System.out.println("*********"+searchURI +"*********");
 			
 		} catch (URISyntaxException e) {
@@ -34,7 +34,7 @@ public class Service implements UserService {
 	public String info(int itemNumber) {
 		URI searchURI=null;
 		try {
-			searchURI = new URI("http://"+frontEndServer.CATALOG_IP_ADDRESS+":"+frontEndServer.CATALOG_PORT+"/query/info/"+URLEncoder.encode(Integer.toString(itemNumber), StandardCharsets.UTF_8));
+			searchURI = new URI("http://"+frontEndServer.CATALOG_IP_ADDRESS+":"+frontEndServer.CATALOG_PORT+"/query/iteamNumber/"+URLEncoder.encode(Integer.toString(itemNumber), StandardCharsets.UTF_8));
 			System.out.println("*********"+searchURI +"*********");
 			
 		} catch (URISyntaxException e) {
