@@ -1,12 +1,12 @@
 package frontEnd;
 
-import java.util.Vector;
+
 
 public interface UserService {
 
-	public  Vector<Book> search(String topic);
+	public  String search(String topic);
 	
-	public Book info(int itemNumber);
+	public String info(int itemNumber);
 	
 	public void purchase(int itemNumber);
 	
