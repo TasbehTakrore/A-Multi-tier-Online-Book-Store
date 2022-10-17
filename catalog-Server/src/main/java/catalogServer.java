@@ -35,7 +35,7 @@ public class catalogServer {
 	        });
 
 
-	        post("update/:iteamNumber/:count", (req,res)->{
+	        put("update/:iteamNumber/:count", (req,res)->{
 	            res.type("application/json");
 	            
 	            return catSer.updateIteamCount(req.params(":iteamNumber"),req.params(":count"));

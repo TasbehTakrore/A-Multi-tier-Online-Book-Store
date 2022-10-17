@@ -6,6 +6,7 @@ import java.io.StringReader;
 import org.json.JSONObject;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -20,14 +21,21 @@ public class frontEndServer {
 		
 		get("search/:topic", (req,res)->{
 			 res.type("application/json");
-			 String output=handleRequest.search(req.params(":topic"));
+			 Gson parseJson = new GsonBuilder().
+		                          setPrettyPrinting().
+		                          setExclusionStrategies(new BookSearchExclusionStrategy()).
+		                          create(); 
+			 
+			 Book[] outputBooks=handleRequest.search(req.params(":topic"));
+			 String output=parseJson.toJson(outputBooks, Book[].class);
+			
 			
             return output;
         });
 		
 		get("info/:itemNumber", (req,res)->{
 			 res.type("application/json");
-			 String output=handleRequest.info(Integer.parseInt(req.params(":itemNumber")));
+			 Book output=handleRequest.info(Integer.parseInt(req.params(":itemNumber")));
 			
            return output;
        });

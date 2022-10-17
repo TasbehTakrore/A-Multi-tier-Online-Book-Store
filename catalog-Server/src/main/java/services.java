@@ -14,13 +14,13 @@ public class services {
 	static String comma="";
 	static int f = 0; 
 	public static database data = new database();
-	static String CSVFileURL="C:\\\\Users\\\\USER\\\\git\\\\A-Multi-tier-Online-Book-Store\\\\catalog-Server\\\\src\\\\main\\\\java\\\\catalogDatabase.CSV";
+	static String CSVFileURL=System.getProperty("user.dir")+"\\\\src\\\\main\\\\java\\\\catalogDatabase.CSV";
 	List<String[]> r;
 
 	
 	 void ifTopicFound(String[] x, String topic){
 		if ( x[4].equals(topic))
-			searchResponse += comma+"\n  {\n     \"id\":" + x[0]+ ",\n     \"title\":\""+ x[1]+"\"\n  }";
+			searchResponse += comma+"\n  {\n     \"itemNumber\":" + x[0]+ ",\n     \"title\":\""+ x[1]+"\"\n  }";
 			if (f==0) {
 				f=1;
 				comma += ",";}

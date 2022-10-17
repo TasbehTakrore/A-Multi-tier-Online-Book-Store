@@ -13,36 +13,52 @@ import java.nio.charset.StandardCharsets;
 import java.util.Vector;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+
 
 public class Service implements UserService {
 
-	public String search(String topic) {
+	public Book[] search(String topic) {
 		
 		URI searchURI=null;
 		try {
 			searchURI = new URI("http://"+frontEndServer.CATALOG_IP_ADDRESS+":"+frontEndServer.CATALOG_PORT+"/query/topic/"+URLEncoder.encode(topic, StandardCharsets.UTF_8));
-			System.out.println("*********"+searchURI +"*********");
+			
 			
 		} catch (URISyntaxException e) {
 			
 			e.printStackTrace();
 		} 
 		String responseData=getResponseData(searchURI);
-		return responseData;
+		Gson parseJson = new GsonBuilder().
+		                     setPrettyPrinting().
+		                     setExclusionStrategies(new BookSearchExclusionStrategy()).
+		                     create(); 
+		
+		Book[] resultBooks = parseJson.fromJson(responseData, Book[].class) ;
+		
+		return resultBooks;
 	}
 
-	public String info(int itemNumber) {
+	public Book info(int itemNumber) {
 		URI searchURI=null;
 		try {
 			searchURI = new URI("http://"+frontEndServer.CATALOG_IP_ADDRESS+":"+frontEndServer.CATALOG_PORT+"/query/iteamNumber/"+URLEncoder.encode(Integer.toString(itemNumber), StandardCharsets.UTF_8));
-			System.out.println("*********"+searchURI +"*********");
+		
 			
 		} catch (URISyntaxException e) {
 			
 			e.printStackTrace();
 		} 
 		String responseData=getResponseData(searchURI);
-		return responseData;
+		Gson parseJson = new GsonBuilder().
+                setPrettyPrinting().
+                setExclusionStrategies(new BookSearchExclusionStrategy()).
+                create(); 
+
+      Book resultBook = parseJson.fromJson(responseData, Book.class) ;
+		return resultBook;
 	}
 
 	public void purchase(int itemNumber) {
