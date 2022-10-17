@@ -1,14 +1,20 @@
 package frontEnd;
 
 public class Book {
-	private String title;
-	private int price;
-	private int quantity;
-	private String topic;
 	private int itemNumber;
+	private String title;
+	private int quantity;
+	private int price;
+	private String topic;
 	private String message;
 	
-	public Book(String title, int price, int quantity, String topic, int itemNumber,String message) {
+	@Override
+	public String toString() {
+		return "Book [itemNumber=" + itemNumber + ", title=" + title + ", price=" + price + ", quantity=" + quantity
+				+ ", topic=" + topic + ", message=" + message + "]";
+	}
+
+	public Book(int itemNumber,String title, int quantity,int price,  String topic,String message) {
 		
 		this.title = title;
 		this.price = price;

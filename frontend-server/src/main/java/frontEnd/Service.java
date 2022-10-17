@@ -31,12 +31,20 @@ public class Service implements UserService {
 			e.printStackTrace();
 		} 
 		String responseData=getResponseData(searchURI);
+		
 		Gson parseJson = new GsonBuilder().
 		                     setPrettyPrinting().
-		                     setExclusionStrategies(new BookSearchExclusionStrategy()).
 		                     create(); 
+		Book[] resultBooks=null;
 		
-		Book[] resultBooks = parseJson.fromJson(responseData, Book[].class) ;
+		try {
+		resultBooks = parseJson.fromJson(responseData, Book[].class) ;
+		}
+		
+		catch(Exception e) {
+		
+		}
+		
 		
 		return resultBooks;
 	}
@@ -54,10 +62,9 @@ public class Service implements UserService {
 		String responseData=getResponseData(searchURI);
 		Gson parseJson = new GsonBuilder().
                 setPrettyPrinting().
-                setExclusionStrategies(new BookSearchExclusionStrategy()).
                 create(); 
 
-      Book resultBook = parseJson.fromJson(responseData, Book.class) ;
+        Book resultBook = parseJson.fromJson(responseData, Book.class) ;
 		return resultBook;
 	}
 

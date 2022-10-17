@@ -21,23 +21,19 @@ public class frontEndServer {
 		
 		get("search/:topic", (req,res)->{
 			 res.type("application/json");
-			 Gson parseJson = new GsonBuilder().
-		                          setPrettyPrinting().
-		                          setExclusionStrategies(new BookSearchExclusionStrategy()).
-		                          create(); 
-			 
+		 
 			 Book[] outputBooks=handleRequest.search(req.params(":topic"));
-			 String output=parseJson.toJson(outputBooks, Book[].class);
 			
+			return StandardResponse.BookSearchResponse(outputBooks);
 			
-            return output;
+           
         });
 		
 		get("info/:itemNumber", (req,res)->{
 			 res.type("application/json");
 			 Book output=handleRequest.info(Integer.parseInt(req.params(":itemNumber")));
 			
-           return output;
+           return StandardResponse.BookInfoResponse(output);
        });
 
 	}

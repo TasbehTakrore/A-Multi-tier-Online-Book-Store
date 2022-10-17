@@ -1,6 +1,12 @@
 
 
 public class Book {
+	@Override
+	public String toString() {
+		return "Book [title=" + title + ", price=" + price + ", quantity=" + quantity + ", topic=" + topic
+				+ ", itemNumber=" + itemNumber + ", message=" + message + "]";
+	}
+
 	private String title;
 	private int price;
 	private int quantity;
