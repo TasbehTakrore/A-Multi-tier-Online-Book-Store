@@ -8,6 +8,6 @@ public interface UserService {
 	
 	public Book info(int itemNumber);
 	
-	public void purchase(int itemNumber);
+	public Book purchase(int itemNumber);
 	
 }
