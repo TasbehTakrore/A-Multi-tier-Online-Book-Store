@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
+import com.google.gson.Gson;    
 
 public class services {
 	
@@ -14,64 +15,77 @@ public class services {
 	static String comma="";
 	static int f = 0; 
 	public static database data = new database();
-	static String CSVFileURL=System.getProperty("user.dir")+"\\\\src\\\\main\\\\java\\\\catalogDatabase.CSV";
 	List<String[]> r;
+	Book book = null;
+	Book[]  books = null;
+	int count=0;
+	int index;
 
 	
-	 void ifTopicFound(String[] x, String topic){
-		if ( x[4].equals(topic))
-			searchResponse += comma+"\n  {\n     \"itemNumber\":" + x[0]+ ",\n     \"title\":\""+ x[1]+"\"\n  }";
-			if (f==0) {
-				f=1;
-				comma += ",";}
+	void addBooktoArrayBooks(String[] x, String topic, int indexm){
+		 
+		 book = new Book(x[0],Integer.parseInt(x[1]),Integer.parseInt(x[2]),x[3],Integer.parseInt(x[4]),"");
+		 books[index]=book;
 	}
-
 	
-	  String searchForTopic(String topic) throws IOException, CsvException {
-		  
-		 searchResponse ="[";
-		 comma="";
-		 f = 0;
+	  Book[] searchForTopic(String topic) throws IOException, CsvException {
 		 
-		 r =  data.getallData(CSVFileURL);
-		 r.forEach(x -> ifTopicFound(x,topic)); 
+		  count=0;
+		 r =  data.getallData();
 		 
-		 searchResponse += "\n]"; 
-		 
-		 //if topic not exist
-		  if(searchResponse.equals("[\n]")) {
-			  searchResponse = "\n  {\n     \"message\": \"This topic does not exist!\" \n  }";
-		  }
-		  return searchResponse;
-	}
-
-	 void ifIteamFound(String[] x, String iteam){
-			if ( x[0].equals(iteam))
-				{iteamResponse = "\n  {\n     \"title\": \"" + x[1]+ "\",\n     \"quantity\":"+ x[3]+ ",\n     \"price\":"+ x[2]+"\n  }";
-					f = 1;
-				}}
-			 
-	 
-	  String searchForIteam(String iteam) throws IOException, CsvException {
-		 iteamResponse="\n  {\n     \"message\": \"This item does not exist!"+"\"\n  }";
-		 r =  data.getallData(CSVFileURL);
-
-		 f = 0;
-		 for( String[] arry: r) {
-			 ifIteamFound(arry,iteam.toString());
-			 if(f==1) break;
+		 //to find count of books that have :topic
+		 r.forEach(x -> {
+			 if ( x[3].equals(topic))
+				 count ++;}); 	 
+				 
+		 // If there is no book with :topic
+		 if (count==0) {
+			 books = new Book[1];
+			 book = new Book();
+			 book.setMessage("This topic does not exist!");
+			 books[0]=book;
+			 return books;
 		 }
-			   
-		 return iteamResponse;
+		 
+		 index =0;
+		 books = new Book[count];
+		 r.forEach(x -> {
+			 if ( x[3].equals(topic)) {
+				 addBooktoArrayBooks(x, topic, index);
+				 // System.out.println(books[index].getTitle());
+				 index ++;}}); 
+		 
+		 return books;
+	}
+	 
+	  Book searchForItem(String itemNumber) throws IOException, CsvException {
+		 r =  data.getallData();
+
+		 for( String[] x: r) {
+
+			 if(x[4].equals(itemNumber)) { // if item exist
+				 book = new Book(x[0],Integer.parseInt(x[1]),Integer.parseInt(x[2]),x[3],Integer.parseInt(x[4]),"");
+				 System.out.println("info :\")");
+
+				 return book;
+			 }
+		 			   
+			 book = new Book();
+			 book.setMessage("This item does not exist!");
+			 System.out.println("no item!! :\")");
+		 } 
+		 return book;
 	}
 
 
 	  
-	  String updateIteamCount(String iteamNumber, String count) throws IOException, CsvException {
+	  Book updateIteamQuantity(Book bOok) throws IOException, CsvException {
 		  
+		  Book book = bOok;
 		  //r =  data.getallData(CSVFileURL);
-		  updateResponse = data.updateIteamCountInDatadase(iteamNumber,count,CSVFileURL);
-		  return updateResponse;
+		  updateResponse = data.updateIteamQuantityInDatadase(Integer.toString(book.getItemNumber()),Integer.toString(book.getQuantity()));
+		  book.setMessage(updateResponse);
+		  return book;
 		  
 	  }
 

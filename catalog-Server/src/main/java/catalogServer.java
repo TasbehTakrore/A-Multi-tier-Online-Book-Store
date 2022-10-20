@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
+import com.google.gson.Gson;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 
@@ -14,31 +15,45 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import org.json.*;  
+
 
 public class catalogServer {
 	
 
 	public static services catSer = new services();
-	 
-
+	//public static jsonTransformer transToJson = new jsonTransformer();
+		
 	    public static void main(String[] args) throws IOException, CsvException {
 
+	    	
 	        get("query/topic/:topic", (req,res)->{
 	            res.type("application/json");
-	            return  catSer.searchForTopic(URLDecoder.decode(req.params(":topic").toLowerCase(), StandardCharsets.UTF_8));
+	            System.out.println("Search service..");
+	            Book[] outputBooks = catSer.searchForTopic(URLDecoder.decode(req.params(":topic").toLowerCase(), StandardCharsets.UTF_8));
+	            return jsonTransformer.convertObjToGson(outputBooks);            
 	        });
 
-	        get("query/iteamNumber/:iteamNumber", (req,res)->{
+	        get("query/itemNumber/:itemNumber", (req,res)->{
 	            res.type("application/json");
-	            
-	            return  catSer.searchForIteam(URLDecoder.decode(req.params(":iteamNumber").toLowerCase(), StandardCharsets.UTF_8));
+	            System.out.println("info service..");
+	            Book outputBooks = catSer.searchForItem(URLDecoder.decode(req.params(":itemNumber"), StandardCharsets.UTF_8));
+	            return  jsonTransformer.convertObjToGson(outputBooks);
+
 	        });
 
 
-	        put("update/:iteamNumber/:count", (req,res)->{
+	        patch("update/:itemNumber", (req,res)->{
 	            res.type("application/json");
-	            
-	            return catSer.updateIteamCount(req.params(":iteamNumber"),req.params(":count"));
+	           System.out.println(req.body());
+	         //  JSONObject reqBody = new JSONObject(req.body());
+	           
+	           Book book = jsonTransformer.convertGsonToObj(req.body());
+	           book.setItemNumber(Integer.parseInt(req.params(":itemNumber")));
+	           book = catSer.updateIteamQuantity(book);
+	           System.out.println(book.getMessage());
+	           
+	           return jsonTransformer.convertObjToGson(book);
 	        });
 	        
 		    //System.out.print(catSer.updateIteamCount("1","1600"));

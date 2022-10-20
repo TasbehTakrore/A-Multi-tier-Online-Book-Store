@@ -1,9 +1,7 @@
 package order;
 
-import static spark.Spark.*;
+import static spark.Spark.get;
 import static spark.Spark.port;
-
-import com.google.gson.Gson;
 
 
 
@@ -19,8 +17,8 @@ public class OrderServer {
 	public static void main(String[] args) {
 		port(4100);
 		
-		  
-		post("purchase/:itemNumber", (req,res)->{
+		
+		get("purchase/:itemNumber", (req,res)->{
 			 res.type("application/json");
 			 Order outputOrder=handleRequest.purchase(Integer.parseInt(req.params(":itemNumber")));
 			 return StandardResponse.FormatPurchaseResponse(outputOrder);

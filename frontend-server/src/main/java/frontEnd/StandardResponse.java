@@ -14,8 +14,8 @@ public class StandardResponse {
 	public String MessageResponse() {
 		
 		 Gson parseJson = new GsonBuilder().
-                              setPrettyPrinting().
-                              create(); 
+                 setPrettyPrinting().
+                 create(); 
 		 
 		 return parseJson.toJson(this, getClass());
 	}
@@ -45,10 +45,5 @@ public class StandardResponse {
                 setExclusionStrategies(new BookInfoExclusionStrategy()).
                 create(); 
 		return parseJson.toJson(outputBook, Book.class);
-	}
-	
-	
-	public static String BookPurchaseResponse(Book outputBook) {
-	return new StandardResponse(outputBook.getMessage()).MessageResponse();
 	}
 }

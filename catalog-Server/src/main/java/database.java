@@ -12,9 +12,11 @@ public class database {
 	
 	
 	List<String[]> r;
-	String updateResponse;
-	
-	public List<String[]> getallData(String CSVFileURL) throws IOException, CsvException {
+	String updateResponse ="Update not succeeded! This item may not exist, or quantity less than 0.";
+	static String CSVFileURL=System.getProperty("user.dir")+"\\\\src\\\\main\\\\java\\\\catalogDatabase.CSV";
+	int f = 0;
+
+	public List<String[]> getallData() throws IOException, CsvException {
 		
 		  try (CSVReader reader = new CSVReader(new FileReader(CSVFileURL))) {
 			  r = reader.readAll();
@@ -23,25 +25,31 @@ public class database {
 		  return r;
 	}
 	
-	public String updateIteamCountInDatadase(String iteamNumber,String count, String CSVFileURL) throws IOException, CsvException {
+	public String updateIteamQuantityInDatadase(String iteamNumber,String quantity) throws IOException, CsvException {
 		
-		r = getallData(CSVFileURL);
+		if (Integer.parseInt(quantity) < 0) { return updateResponse;}
+		f=0;
+		r = getallData();
 			 
 		try (CSVWriter writer = new CSVWriter(new FileWriter(CSVFileURL))) {
 				  
 			for(String[] arry: r) {
-				 System.out.println(arry[0]+"**"+arry[3]+"**"+ iteamNumber);
-
-				if(arry[0].equals(iteamNumber)) {arry[3]=count;}
+				if(arry[4].equals(iteamNumber))  {
+					arry[2]=quantity;
+					f=1;
+					}
 				writer.writeNext(arry);				  
-			}			    
+			}	
+			if(f==1)
+			updateResponse = "Update succeeded!";
+
 		} 	
 		catch (IOException e) { 
 			// TODO Auto-generated catch block 
 			e.printStackTrace(); 
-		} 
-		
-		updateResponse = "\n  {\n     \"message\": \"Update succeeded!\" \n  }";
+			System.out.println("**"+e);
+		} 	
+	//	System.out.println("&&&"+updateResponse);
 		return updateResponse;
 		
 			 
