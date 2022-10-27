@@ -8,6 +8,7 @@ import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.charset.StandardCharsets;
 import java.util.Vector;
@@ -50,27 +51,41 @@ public class Service implements UserService {
 	}
 
 	public Book info(int itemNumber) {
-		URI searchURI=null;
+		URI infoURI=null;
 		try {
-			searchURI = new URI("http://"+frontEndServer.CATALOG_IP_ADDRESS+":"+frontEndServer.CATALOG_PORT+"/query/itemNumber/"+URLEncoder.encode(Integer.toString(itemNumber), StandardCharsets.UTF_8));
+			infoURI = new URI("http://"+frontEndServer.CATALOG_IP_ADDRESS+":"+frontEndServer.CATALOG_PORT+"/query/itemNumber/"+URLEncoder.encode(Integer.toString(itemNumber), StandardCharsets.UTF_8));
 		
 			
 		} catch (URISyntaxException e) {
 			
 			e.printStackTrace();
 		} 
-		String responseData=getResponseData(searchURI);
+		String responseData=getResponseData(infoURI);
 		Gson parseJson = new GsonBuilder().
-                setPrettyPrinting().
-                create(); 
+                             setPrettyPrinting().
+                             create(); 
 
-        Book  resultBook = parseJson.fromJson(responseData, Book.class) ;
-        return resultBook;
+        Book resultBook = parseJson.fromJson(responseData, Book.class) ;
+		return resultBook;
+	}
 
-	}	
+	public Book purchase(int itemNumber) {
+		URI purchaseURI=null;
+		try {
+			purchaseURI = new URI("http://"+frontEndServer.ORDER_IP_ADDRESS+":"+frontEndServer.ORDER_PORT+"/purchase/"+URLEncoder.encode(Integer.toString(itemNumber), StandardCharsets.UTF_8));
+		
+			
+		} catch (URISyntaxException e) {
+			
+			e.printStackTrace();
+		} 
+		String responseData=PostResponseData(purchaseURI);
+		Gson parseJson = new GsonBuilder().
+                             setPrettyPrinting().
+                             create(); 
 
-	public void purchase(int itemNumber) {
-		// TODO Auto-generated method stub
+        Book resultBook = parseJson.fromJson(responseData, Book.class) ;
+		return resultBook;
 
 	}
 	
@@ -100,4 +115,30 @@ public class Service implements UserService {
 		return response.body();
 	}
 
+	
+	private String PostResponseData(URI uri) {
+		HttpRequest request=null;
+		HttpClient client=null;
+		HttpResponse<String> response=null;
+		
+		try {
+			
+			  request = HttpRequest.newBuilder()
+							       .uri(uri)
+							       .POST(BodyPublishers.ofString(""))
+							       .build(); 
+			client=HttpClient.newHttpClient();
+			
+			response = client.send(request, BodyHandlers.ofString());
+			
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			
+			e.printStackTrace();
+		}
+		return response.body();
+	}
 }

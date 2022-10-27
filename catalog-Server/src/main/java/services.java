@@ -83,7 +83,11 @@ public class services {
 		  
 		  Book book = bOok;
 		  //r =  data.getallData(CSVFileURL);
-		  updateResponse = data.updateIteamQuantityInDatadase(Integer.toString(book.getItemNumber()),Integer.toString(book.getQuantity()));
+		  int quantity = book.getQuantity();
+		  int price = book.getPrice();
+		  System.out.println(price+"****");
+		  updateResponse = data.updateIteamQuantityInDatadase(Integer.toString(book.getItemNumber()),quantity, price);
+
 		  book.setMessage(updateResponse);
 		  return book;
 		  

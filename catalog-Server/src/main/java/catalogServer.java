@@ -45,19 +45,15 @@ public class catalogServer {
 
 	        patch("update/:itemNumber", (req,res)->{
 	            res.type("application/json");
-	           System.out.println(req.body());
-	         //  JSONObject reqBody = new JSONObject(req.body());
-	           
+	           System.out.println(req.body());	           
 	           Book book = jsonTransformer.convertGsonToObj(req.body());
 	           book.setItemNumber(Integer.parseInt(req.params(":itemNumber")));
 	           book = catSer.updateIteamQuantity(book);
-	           System.out.println(book.getMessage());
+	           System.out.println("-----------------"+book.getMessage());
 	           
 	           return jsonTransformer.convertObjToGson(book);
 	        });
 	        
-		    //System.out.print(catSer.updateIteamCount("1","1600"));
-
 	    }
 
 

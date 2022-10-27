@@ -12,7 +12,7 @@ public class database {
 	
 	
 	List<String[]> r;
-	String updateResponse ="Update not succeeded! This item may not exist, or quantity less than 0.";
+	String updateResponse ="Update doesn't succeeded!";
 	static String CSVFileURL=System.getProperty("user.dir")+"\\\\src\\\\main\\\\java\\\\catalogDatabase.CSV";
 	int f = 0;
 
@@ -25,23 +25,28 @@ public class database {
 		  return r;
 	}
 	
-	public String updateIteamQuantityInDatadase(String iteamNumber,String quantity) throws IOException, CsvException {
-		
-		if (Integer.parseInt(quantity) < 0) { return updateResponse;}
-		f=0;
+	public String updateIteamQuantityInDatadase(String iteamNumber,int quantity, int price) throws IOException, CsvException {
+		updateResponse ="Update doesn't succeeded!";
+		//if (Integer.parseInt(quantity) < 0) { return updateResponse;}
+		System.out.println("ddddddd"+quantity);
+		//f=0;
 		r = getallData();
 			 
 		try (CSVWriter writer = new CSVWriter(new FileWriter(CSVFileURL))) {
 				  
 			for(String[] arry: r) {
-				if(arry[4].equals(iteamNumber))  {
-					arry[2]=quantity;
-					f=1;
+				if(arry[4].equals(iteamNumber)){
+					if(quantity>=0) {
+					arry[2]=Integer.toString(quantity);
+					updateResponse = "Update succeeded!";
+					}
+					if(price>0) {
+					arry[1]=Integer.toString(price);					
+					updateResponse = "Update succeeded!";
+					}
 					}
 				writer.writeNext(arry);				  
 			}	
-			if(f==1)
-			updateResponse = "Update succeeded!";
 
 		} 	
 		catch (IOException e) { 

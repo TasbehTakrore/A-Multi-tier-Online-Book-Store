@@ -1,7 +1,11 @@
 package order;
 
-import static spark.Spark.get;
+import static spark.Spark.*;
 import static spark.Spark.port;
+
+import com.google.gson.Gson;
+
+
 
 
 
@@ -17,18 +21,25 @@ public class OrderServer {
 	public static void main(String[] args) {
 		port(4100);
 		
-		
-		get("purchase/:itemNumber", (req,res)->{
+		  
+		post("purchase/:itemNumber", (req,res)->{
 			 res.type("application/json");
-			 Order outputOrder=handleRequest.purchase(Integer.parseInt(req.params(":itemNumber")));
+			 int itemNumber;
+			 try {
+			 itemNumber=Integer.parseInt(req.params(":itemNumber"));}
+			 catch(NumberFormatException e) {
+				 
+				 return new StandardResponse("you should enter item id as an integer").MessageResponse();
+			 }
+			 Order outputOrder=handleRequest.purchase(itemNumber);
 			 return StandardResponse.FormatPurchaseResponse(outputOrder);
         });
 		
-		get("Orders", (req,res)->{
-			 res.type("application/json");
-			 String output=null;
-			
-           return output;
+		get("orders", (req,res)->{
+		   res.type("application/json");
+			 
+		  Order[] orders=handleRequest.getAllOrders();
+           return StandardResponse.getAllOrdersFormattToJson(orders);
        });
 
 	}

@@ -23,7 +23,7 @@ public class Services implements UserServices {
 		URI catalogQueryRequest=null;
 		Order newOrder=null;
 		try {
-			catalogQueryRequest = new URI("http://"+OrderServer.CATALOG_IP_ADDRESS+":"+OrderServer.CATALOG_PORT+"/query/iteamNumber/"+URLEncoder.encode(Integer.toString(itemNumber), StandardCharsets.UTF_8));
+			catalogQueryRequest = new URI("http://"+OrderServer.CATALOG_IP_ADDRESS+":"+OrderServer.CATALOG_PORT+"/query/itemNumber/"+URLEncoder.encode(Integer.toString(itemNumber), StandardCharsets.UTF_8));
 		} catch (URISyntaxException e) {
 		   e.printStackTrace();
 		}
@@ -98,13 +98,15 @@ public class Services implements UserServices {
 		HttpClient client=null;
 		HttpResponse<String> response=null;
 		
-		URI catalogUpdateQuantityURI=new URI("http://"+OrderServer.CATALOG_IP_ADDRESS+":"+OrderServer.CATALOG_PORT+"/update/"+orderedBook.getItemNumber()+"/"+orderedBook.getQuantity());
+		URI catalogUpdateQuantityURI=new URI("http://"+OrderServer.CATALOG_IP_ADDRESS+":"+OrderServer.CATALOG_PORT+"/update/"+orderedBook.getItemNumber());
 		   
 		try {
+		
 			request = HttpRequest.newBuilder()
 					  .uri(catalogUpdateQuantityURI)
-					  .PUT(BodyPublishers.ofString(orderedBook.toString()))
+					  .method("patch",BodyPublishers.ofString(orderedBook.toJson()))
 					  .build();
+			
 			
 			client=HttpClient.newHttpClient();
 			
@@ -118,6 +120,13 @@ public class Services implements UserServices {
 			
 			e.printStackTrace();
 		}
+	
 		return response.body();
+	}
+
+	@Override
+	public Order[] getAllOrders() {
+		
+		return orders.getAllOrders();
 	}
 }

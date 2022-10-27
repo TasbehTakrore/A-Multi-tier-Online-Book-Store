@@ -15,6 +15,9 @@ public class frontEndServer {
 	public static Service handleRequest=new Service();
 	public static String CATALOG_IP_ADDRESS="localhost";
 	public static String CATALOG_PORT="4567";
+	public static String ORDER_IP_ADDRESS="localhost";
+	public static String ORDER_PORT="4100";
+	
 	
 	public static void main(String[] args) {
 		port(4000);
@@ -31,9 +34,29 @@ public class frontEndServer {
 		
 		get("info/:itemNumber", (req,res)->{
 			 res.type("application/json");
-			 Book output=handleRequest.info(Integer.parseInt(req.params(":itemNumber")));
+			 int itemNumber;
+			 try {
+			 itemNumber=Integer.parseInt(req.params(":itemNumber"));}
+			 catch(NumberFormatException e) {
+				 
+				 return new StandardResponse("you should enter item id as an integer").MessageResponse();
+			 }
+			 Book output=handleRequest.info(itemNumber);
 			
            return StandardResponse.BookInfoResponse(output);
+       });
+		
+		post("purchase/:itemNumber", (req,res)->{
+			 res.type("application/json");
+			 int itemNumber;
+			 try {
+			 itemNumber=Integer.parseInt(req.params(":itemNumber"));}
+			 catch(NumberFormatException e) {
+				 
+				 return new StandardResponse("you should enter item id as an integer").MessageResponse();
+			 }
+		     Book output=handleRequest.purchase(itemNumber);
+			 return StandardResponse.BookPurchaseResponse(output);
        });
 
 	}

@@ -1,4 +1,3 @@
-package order;
 
 import com.google.gson.annotations.Expose;
 
@@ -27,15 +26,7 @@ public class Order {
 		return "Order [orderdBook=" + orderdBook + ", orderNumber=" + orderNumber + ", message=" + message + "]";
 	}
 
-public String toStringtoDatabase() {
-		
-		return orderNumber + "," +orderdBook.toStringtoDatabase() + "," + message ;
-	}
 
-
-	public String toJson() {
-		return StandardResponse.FormatfFromOrdertoJson(this);
-	}
 	
 	static public Order fromDatabasetoOrder(String[] values) {
 		Book BookValues=new Book(values[1],Integer.parseInt(values[2]),Integer.parseInt(values[3]),values[4],Integer.parseInt(values[5]),"");

@@ -1,10 +1,18 @@
 package order;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
+
 public class Book {
+	@Expose 
 	private String title;
+	@Expose 
 	private int price;
+	@Expose 
 	private int quantity;
 	private String topic;
+	@Expose 
 	private int itemNumber;
 	private String message;
 	
@@ -60,6 +68,11 @@ public class Book {
 		return "Book [title=" + title + ", price=" + price + ", quantity=" + quantity + ", topic=" + topic
 				+ ", itemNumber=" + itemNumber + ", message=" + message + "]";
 	}
+	
+	public String toStringtoDatabase() {
+		return  title + "," + price + "," + quantity + "," + topic
+				+ "," + itemNumber ;
+	}
 
 	public int getQuantity() {
 		return quantity;
@@ -75,6 +88,14 @@ public class Book {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	
+	public String toJson() {
+		Gson parseJson = new GsonBuilder().
+                setPrettyPrinting().
+                create(); 
+
+return parseJson.toJson(this, getClass());
 	}
 	
 
