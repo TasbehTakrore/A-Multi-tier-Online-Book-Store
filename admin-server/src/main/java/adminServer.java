@@ -16,8 +16,7 @@ public class adminServer {
 	public static void main(String[] args) {
 
 		port(4000);
-		
-        get("orders", (req,res)->{
+		 get("orders", (req,res)->{
         	
         	String allOrders = handleRequest.getAllOrders();
         	res.type("application/json");

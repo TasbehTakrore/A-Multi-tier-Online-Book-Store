@@ -16,8 +16,6 @@ import java.util.Vector;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-
-
 public class Service implements UserService {
 
 	public Book[] search(String topic) {
