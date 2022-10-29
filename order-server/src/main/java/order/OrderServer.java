@@ -14,12 +14,12 @@ import com.google.gson.Gson;
 public class OrderServer {
 	
 	public static Services handleRequest=new Services();
-	public static String CATALOG_IP_ADDRESS="localhost";
-	public static String CATALOG_PORT="4567";
+	public static String CATALOG_IP_ADDRESS=System.getenv("CATALOG_IP_ADDRESS");
+	public static String CATALOG_PORT="4000";
 
 
 	public static void main(String[] args) {
-		port(4100);
+		port(4000);
 		
 		  
 		post("purchase/:itemNumber", (req,res)->{

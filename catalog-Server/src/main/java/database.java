@@ -13,7 +13,7 @@ public class database {
 	
 	List<String[]> r;
 	String updateResponse ="Update doesn't succeeded!";
-	static String CSVFileURL=System.getProperty("user.dir")+"\\\\src\\\\main\\\\java\\\\catalogDatabase.CSV";
+	static String CSVFileURL="catalogDatabase.CSV";
 	int f = 0;
 
 	public List<String[]> getallData() throws IOException, CsvException {
