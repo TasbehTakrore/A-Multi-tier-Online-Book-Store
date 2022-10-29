@@ -24,7 +24,7 @@ this project was implemented using **java**, **maven**  and **spark framework** 
 
 ###### Installation and running
 
-First, make sure that **jdk 17** or heigher is installed and **$JAVA_HOME** environment variable is set and pointing to your jdk download folder, next a detailed steps to run each service from a **Executable jar file** that was uploaded to s3 bucket on AWS cloud.
+First, make sure that **jdk 17** or heigher is installed and **$JAVA_HOME** environment variable is set and pointing to your jdk download folder, next a detailed steps to run each service from an **Executable jar file** that contains everything needed to run each service.
 
 **1. Catalog-Server:**
   - Download the executable jar file for Catalog-Server from [here](https://multi-tier-online-book-store.s3.us-west-2.amazonaws.com/catalog-Server-Runnable.jar). <br>
