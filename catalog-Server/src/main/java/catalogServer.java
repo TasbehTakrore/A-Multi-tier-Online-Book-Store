@@ -25,7 +25,7 @@ public class catalogServer {
 	//public static jsonTransformer transToJson = new jsonTransformer();
 		
 	    public static void main(String[] args) throws IOException, CsvException {
-       port(4000);
+
 	    	
 	        get("query/topic/:topic", (req,res)->{
 	            res.type("application/json");

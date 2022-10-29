@@ -13,10 +13,10 @@ import com.google.gson.JsonParser;
 public class frontEndServer {
 
 	public static Service handleRequest=new Service();
-	public static String CATALOG_IP_ADDRESS=System.getenv("CATALOG_IP_ADDRESS");
-	public static String CATALOG_PORT="4000";
-	public static String ORDER_IP_ADDRESS=System.getenv("ORDER_IP_ADDRESS");
-	public static String ORDER_PORT="4000";
+	public static String CATALOG_IP_ADDRESS="localhost";
+	public static String CATALOG_PORT="4567";
+	public static String ORDER_IP_ADDRESS="localhost";
+	public static String ORDER_PORT="4100";
 	
 	
 	public static void main(String[] args) {

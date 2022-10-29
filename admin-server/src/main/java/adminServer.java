@@ -8,14 +8,14 @@ import static spark.Spark.port;
 public class adminServer {
 
 	public static services handleRequest = new services();
-	public static String CATALOG_IP_ADDRESS=System.getenv("CATALOG_IP_ADDRESS");
-	public static String CATALOG_PORT="4000";
-	public static String ORDER_IP_ADDRESS=System.getenv("ORDER_IP_ADDRESS");
-	public static String ORDER_PORT="4000";
+	public static String ORDER_IP_ADDRESS="localhost";
+	public static String ORDER_PORT="4100";
+	public static String CATALOG_IP_ADDRESS="localhost";
+	public static String CATALOG_PORT="4567";
 
 	public static void main(String[] args) {
 
-		port(4000);
+		port(4700);
 		
         get("orders", (req,res)->{
         	
