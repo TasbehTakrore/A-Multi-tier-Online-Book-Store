@@ -21,7 +21,7 @@ public class orderDatabase {
 	
 	public orderDatabase() {
 		
-	CSVFileURL=System.getProperty("user.dir")+"/src/main/resources/orderDatabase.CSV";
+	CSVFileURL="orderDatabase.CSV";
     orders=getallData();
     ordersCount=orders.size();
     System.out.println(ordersCount);
