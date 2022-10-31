@@ -24,6 +24,7 @@ public class OrderServer {
 		  
 		post("purchase/:itemNumber", (req,res)->{
 			 res.type("application/json");
+			 logMessages.printlogMessage(req,"purchase/"+req.params(":itemNumber"));           
 			 int itemNumber;
 			 try {
 			 itemNumber=Integer.parseInt(req.params(":itemNumber"));}
@@ -37,8 +38,8 @@ public class OrderServer {
 		
 		get("orders", (req,res)->{
 		   res.type("application/json");
-			 
-		  Order[] orders=handleRequest.getAllOrders();
+		   logMessages.printlogMessage(req,"orders");           			 
+		   Order[] orders=handleRequest.getAllOrders();
            return StandardResponse.getAllOrdersFormattToJson(orders);
        });
 

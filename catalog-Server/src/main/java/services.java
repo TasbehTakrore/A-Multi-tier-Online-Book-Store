@@ -52,7 +52,6 @@ public class services {
 		 r.forEach(x -> {
 			 if ( x[3].equals(topic)) {
 				 addBooktoArrayBooks(x, topic, index);
-				 // System.out.println(books[index].getTitle());
 				 index ++;}}); 
 		 
 		 return books;
@@ -65,14 +64,12 @@ public class services {
 
 			 if(x[4].equals(itemNumber)) { // if item exist
 				 book = new Book(x[0],Integer.parseInt(x[1]),Integer.parseInt(x[2]),x[3],Integer.parseInt(x[4]),"");
-				 System.out.println("info :\")");
 
 				 return book;
 			 }
 		 			   
 			 book = new Book();
 			 book.setMessage("This item does not exist!");
-			 System.out.println("no item!! :\")");
 		 } 
 		 return book;
 	}
@@ -85,7 +82,6 @@ public class services {
 		  //r =  data.getallData(CSVFileURL);
 		  int quantity = book.getQuantity();
 		  int price = book.getPrice();
-		  System.out.println(price+"****");
 		  updateResponse = data.updateIteamQuantityInDatadase(Integer.toString(book.getItemNumber()),quantity, price);
 
 		  book.setMessage(updateResponse);

@@ -27,9 +27,6 @@ public class database {
 	
 	public String updateIteamQuantityInDatadase(String iteamNumber,int quantity, int price) throws IOException, CsvException {
 		updateResponse ="Update doesn't succeeded!";
-		//if (Integer.parseInt(quantity) < 0) { return updateResponse;}
-		System.out.println("ddddddd"+quantity);
-		//f=0;
 		r = getallData();
 			 
 		try (CSVWriter writer = new CSVWriter(new FileWriter(CSVFileURL))) {
@@ -54,7 +51,6 @@ public class database {
 			e.printStackTrace(); 
 			System.out.println("**"+e);
 		} 	
-	//	System.out.println("&&&"+updateResponse);
 		return updateResponse;
 		
 			 

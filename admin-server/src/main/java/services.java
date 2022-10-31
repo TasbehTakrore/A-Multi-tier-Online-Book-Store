@@ -16,7 +16,6 @@ import com.google.gson.Gson;
 
 public class services {
 	
-	jsonTransformer transformer = new jsonTransformer();
 	
 	String getAllOrders(){
 		URI orderQueryRequest=null;
@@ -45,7 +44,6 @@ public class services {
 				catalogQueryRequest = new URI("http://"+adminServer.CATALOG_IP_ADDRESS+":"+adminServer.CATALOG_PORT+"/query/itemNumber/"+URLEncoder.encode(Integer.toString(book.getItemNumber()), StandardCharsets.UTF_8));
 			} catch (URISyntaxException e) {
 			   e.printStackTrace();
-			   System.out.println("********");
 			}
 			
 			String orderedBookInfo=getResponseData(catalogQueryRequest);
@@ -55,7 +53,7 @@ public class services {
 			
 			//book doesn't exist
 			if(orderedBook.getMessage()!= null && orderedBook.getMessage().equals("This item does not exist!")) {
-				System.out.println("This item does not exist!");
+				//System.out.println("This item does not exist!");
 				return orderedBook;
 			}
 			
@@ -64,14 +62,11 @@ public class services {
 					updateQueryRequest = new URI("http://"+adminServer.CATALOG_IP_ADDRESS+":"+adminServer.CATALOG_PORT+"/update/"+URLEncoder.encode(Integer.toString(book.getItemNumber()), StandardCharsets.UTF_8));
 				} catch (URISyntaxException e) {
 				   e.printStackTrace();
-				   System.out.println("********");
 
 				}
-				
-				
+						
 				String updateResponse=patchResponseData(updateQueryRequest,book);
-				System.out.println(updateResponse);
-				returnBook = transformer.convertGsonToObj(updateResponse);
+				returnBook = jsonTransformer.convertGsonToObj(updateResponse);
 				
 				return returnBook;
 		  

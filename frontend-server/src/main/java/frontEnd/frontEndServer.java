@@ -24,16 +24,15 @@ public class frontEndServer {
 		
 		get("search/:topic", (req,res)->{
 			 res.type("application/json");
-		 
+			 logMessages.printlogMessage(req,"search/"+req.params(":topic"));           
 			 Book[] outputBooks=handleRequest.search(req.params(":topic"));
-			
 			return StandardResponse.BookSearchResponse(outputBooks);
-			
            
         });
 		
 		get("info/:itemNumber", (req,res)->{
 			 res.type("application/json");
+			 logMessages.printlogMessage(req,"info/"+req.params(":itemNumber"));           
 			 int itemNumber;
 			 try {
 			 itemNumber=Integer.parseInt(req.params(":itemNumber"));}
@@ -48,6 +47,8 @@ public class frontEndServer {
 		
 		post("purchase/:itemNumber", (req,res)->{
 			 res.type("application/json");
+			 logMessages.printlogMessage(req,"purchase/"+req.params(":itemNumber"));           
+
 			 int itemNumber;
 			 try {
 			 itemNumber=Integer.parseInt(req.params(":itemNumber"));}
