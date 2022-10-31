@@ -21,6 +21,7 @@ public class adminServer {
         	
         	String allOrders = handleRequest.getAllOrders();
         	res.type("application/json");
+            logMessages.printlogMessage(req,"orders");
             return allOrders;   
   
         });
@@ -28,14 +29,10 @@ public class adminServer {
         // admin can update quantity or price or both
         patch("update/:itemNumber", (req,res)->{
            res.type("application/json");
-           System.out.println(req.body());
-           Book book = jsonTransformer.convertGsonToObj(req.body());
-           
+           Book book = jsonTransformer.convertGsonToObj(req.body());           
            book.setItemNumber(Integer.parseInt(req.params(":itemNumber")));
-
            book = handleRequest.updateIteam(book);
-           System.out.println(book.getMessage());
-           
+           logMessages.printlogMessage(req,"update/"+req.params(":itemNumber"));           
            return jsonTransformer.convertObjToGson(book,1);
         });
 	}
