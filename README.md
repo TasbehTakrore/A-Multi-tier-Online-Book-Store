@@ -28,7 +28,7 @@ this project was implemented using **java**, **maven**  and **spark framework** 
 First, make sure that **jdk 17** or heigher is installed and **$JAVA_HOME** environment variable is set and pointing to your jdk download folder, next a detailed steps to run each service from an **Executable jar file** that contains everything needed to run each service.
 
 **1. Catalog-Server:**
-  - Download the executable jar file for Catalog-Server from [here](https://multi-tier-online-book-store.s3.us-west-2.amazonaws.com/catalog-Server-executable.jar). <br>
+  - Download the executable jar file for Catalog-Server from [here](https://multi-tier-online-book-store.s3.us-west-2.amazonaws.com/catalog-server-executable.jar). <br>
      
   - Download catalog database csv file from [here](https://multi-tier-online-book-store.s3.us-west-2.amazonaws.com/catalogDatabase.CSV). <br>
      
@@ -36,7 +36,7 @@ First, make sure that **jdk 17** or heigher is installed and **$JAVA_HOME** envi
      
   - Open a tereminal on the folder where the files in and run the following: <br>
      
-          java -jar catalog-Server-Runnable.jar      
+          java -jar catalog-server-executable.jar     
   - Catalog-service is now up and running and can be accessed using the device IP address and **port 4000**. <br>
     
     
@@ -52,7 +52,7 @@ First, make sure that **jdk 17** or heigher is installed and **$JAVA_HOME** envi
      
   - Open a tereminal on the folder where those files are in and run the following: <br>
      
-          java -jar Order-Server-Runnable.jar     
+          java -jar order-server-executable.jar     
   - Order-service is now up and running and can be accessed using the device IP address and **port 4000**. <br>
   
   
@@ -63,7 +63,7 @@ First, make sure that **jdk 17** or heigher is installed and **$JAVA_HOME** envi
      
   - Open a tereminal on the folder where the file is in and run the following: <br>
      
-          java -jar Frontend-Server-Runnable.jar   
+          java -jar frontend-server-executable.jar   
   - FrontEnd-service is now up and running and can be accessed using the device IP address and **port 4000**. <br>
      
    
@@ -76,7 +76,7 @@ First, make sure that **jdk 17** or heigher is installed and **$JAVA_HOME** envi
      
   - Open a tereminal on the folder where the file is in and run the following: <br>
      
-        java -jar Admin-Server-Runnable.jar    
+        java -jar admin-server-executable.jar   
   - Admin-service is now up and running and can be accessed using the device IP address and **port 4000**. <br>
 
   
