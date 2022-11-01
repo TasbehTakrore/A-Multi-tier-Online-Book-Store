@@ -14,8 +14,22 @@ import com.google.gson.Gson;
 public class OrderServer {
 	
 	public static Services handleRequest=new Services();
+	
+    //don't forget to set this environment variable
+	//comment the next  line if catalog  service are running on localhost
 	public static String CATALOG_IP_ADDRESS=System.getenv("CATALOG_IP_ADDRESS");
+	
+	//uncomment the next  line if catalog service are running on localhost
+	/*
+	 public static String CATALOG_IP_ADDRESS="localhost";
+	*/
+	
+	
+	//******** IMPORTANT NOTE:make sure to change the port if all the services are running on the localhost 
+	//                        so that each service has a unique port number
 	public static String CATALOG_PORT="4000";
+
+
 
 
 	public static void main(String[] args) {

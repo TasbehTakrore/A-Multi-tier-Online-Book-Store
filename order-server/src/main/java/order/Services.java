@@ -53,20 +53,27 @@ public class Services implements UserServices {
 			 //update quantity 
 			 orderedBook.setQuantity(orderedBook.getQuantity() -1);
 			 
-			 //****************************** modify to ensure that the update was completed correctly
-		       try {
-					System.out.println(getUpdateQuantityResponseData(orderedBook));
-				} catch (URISyntaxException e) {
-				  e.printStackTrace();
-				}
-			   
-			 //store order in database
-		       orders.addRecord(newOrder);
-		       
+			 try {
+					String updateBook=getUpdateQuantityResponseData(orderedBook);
+					Book b=new Gson().fromJson(updateBook, Book.class);
+					if(!b.getMessage().equals("Update succeeded!")) {
+						newOrder.setMessage("something went wrong!");	
+						return newOrder;
+					}
+					} catch (URISyntaxException e) {
+					  e.printStackTrace();
+					  newOrder.setMessage("something went wrong!");
+					  return newOrder;
+					  
+					}
+				   
+				 //store order in database
+			       orders.addRecord(newOrder);
+			       
+			}
+			
+			return newOrder;
 		}
-		
-		return newOrder;
-	}
 
 	private String getResponseData(URI uri) {
 		HttpRequest request=null;

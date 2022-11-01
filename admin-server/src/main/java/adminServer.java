@@ -8,10 +8,25 @@ import static spark.Spark.port;
 public class adminServer {
 
 	public static services handleRequest = new services();
+	
+	
+    //don't forget to set theses environment variables
+	//comment the next 2 lines if catalog and order services are running on localhost
 	public static String CATALOG_IP_ADDRESS=System.getenv("CATALOG_IP_ADDRESS");
-	public static String CATALOG_PORT="4000";
 	public static String ORDER_IP_ADDRESS=System.getenv("ORDER_IP_ADDRESS");
+	
+	//uncomment the next 2 lines if catalog and order services are running on localhost
+	/*
+	 public static String CATALOG_IP_ADDRESS="localhost";
+	 public static String ORDER_IP_ADDRESS="localhost";
+	 */
+	
+	
+	//******** IMPORTANT NOTE:make sure to change the port if all the services are running on the localhost 
+	//                        so that each service has a unique port number
 	public static String ORDER_PORT="4000";
+	public static String CATALOG_PORT="4000";
+
 
 	public static void main(String[] args) {
 
