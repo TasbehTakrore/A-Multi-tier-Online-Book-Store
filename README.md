@@ -28,7 +28,7 @@ this project was implemented using **java**, **maven**  and **spark framework** 
 First, make sure that **jdk 17** or heigher is installed and **$JAVA_HOME** environment variable is set and pointing to your jdk download folder, next a detailed steps to run each service from an **Executable jar file** that contains everything needed to run each service.
 
 **1. Catalog-Server:**
-  - Download the executable jar file for Catalog-Server from [here](https://multi-tier-online-book-store.s3.us-west-2.amazonaws.com/catalog-Server-Runnable.jar). <br>
+  - Download the executable jar file for Catalog-Server from [here](https://multi-tier-online-book-store.s3.us-west-2.amazonaws.com/catalog-Server-executable.jar). <br>
      
   - Download catalog database csv file from [here](https://multi-tier-online-book-store.s3.us-west-2.amazonaws.com/catalogDatabase.CSV). <br>
      
@@ -42,7 +42,7 @@ First, make sure that **jdk 17** or heigher is installed and **$JAVA_HOME** envi
     
       
 **2. Order-Server:** 
-  - Download the executable jar file for order-Server from [here](https://multi-tier-online-book-store.s3.us-west-2.amazonaws.com/Order-Server-Runnable.jar). <br>
+  - Download the executable jar file for order-Server from [here](https://multi-tier-online-book-store.s3.us-west-2.amazonaws.com/order-server-executable.jar). <br>
      
   - Download order database csv file from [here](https://multi-tier-online-book-store.s3.us-west-2.amazonaws.com/orderDatabase.csv). <br>
      
@@ -57,7 +57,7 @@ First, make sure that **jdk 17** or heigher is installed and **$JAVA_HOME** envi
   
   
   **3. FrontEnd-Server:**
-  - Download the executable jar file for frontend-Server from [here](https://multi-tier-online-book-store.s3.us-west-2.amazonaws.com/Frontend-Server-Runnable.jar). <br>
+  - Download the executable jar file for frontend-Server from [here](https://multi-tier-online-book-store.s3.us-west-2.amazonaws.com/frontend-server-executable.jar). <br>
      
   - FrontEnd-Server use services from Catalog-Server and Order-Server,so you need to set an environment variable for the catalog-server ip address called **'CATALOG_IP_ADDRESS'**, and an environment variable for the order-server ip address called **'ORDER_IP_ADDRESS'** more information about setting environment variables from [here](https://chlee.co/how-to-setup-environment-variables-for-windows-mac-and-linux/). <br>
      
@@ -70,7 +70,7 @@ First, make sure that **jdk 17** or heigher is installed and **$JAVA_HOME** envi
    
 
 **4. Admin-Server:**
-  - Download the executable jar file for order-Server from [here](https://multi-tier-online-book-store.s3.us-west-2.amazonaws.com/Admin-Server-Runnable.jar). <br>
+  - Download the executable jar file for order-Server from [here](https://multi-tier-online-book-store.s3.us-west-2.amazonaws.com/admin-server-executable.jar). <br>
      
   - Admin-Server use services from Catalog-Server and Order-Server,so you need to set an environment variable for the catalog-server ip address called **'CATALOG_IP_ADDRESS'**, and an environment variable for the order-server ip address called **'ORDER_IP_ADDRESS'** more information about setting environment variables from [here](https://chlee.co/how-to-setup-environment-variables-for-windows-mac-and-linux/). <br>
      
