@@ -83,41 +83,41 @@ First, make sure that **jdk 17** or heigher is installed and **$JAVA_HOME** envi
   
   
   ### APIs
-  every microservisce provide certain services that can be accessed using API calling, and they used JSON  formatt data.
+  every microservisce provide certain services that can be accessed using API calling, and they used JSON  format data for both request parameters and response.
   
   
   **Catalog APIs**
   
   | URI  | Method | Description |
 | ------------- | ------------- | ------------- |
-| `/query/topic/<topic>`  | `GET`  | Content Cell  |
-| `/query/itemNumber/<itemNumber>`  | `GET`  | Content Cell  |
-| `/update/<itemNumber>`  | `PATCH`  | Content Cell  |
+| `/query/topic/<topic>`  | `GET`  | query all the books with the specified `<topic>`, returns JSON object represinting matching books information.  |
+| `/query/itemNumber/<itemNumber>`  | `GET`  | query the book with the specified `<itemNumber>`, returns a JSON object represinting the book if the book. |
+| `/update/<itemNumber>`  | `PATCH`  | change quantity or price or both for the specified book, new quantity or new price or both should be sent through request body in JSON format.  |
 
 
   **Order APIs**
   
   | URI  | Method | Description |
 | ------------- | ------------- | ------------- |
-| `/purchase/<itemNumber>`  | `POST`  | Content Cell  |
-| `/orders`  | `GET`  | Content Cell  |
+| `/purchase/<itemNumber>`  | `POST`  | buy the book with this `<itemNumber>`, in a succsesful operation returns a `success` message, otherwise returns a message stating the problem.  |
+| `/orders`  | `GET`  | returns all the successful orders.  |
 
 
   **FrontEnd APIs**
   
   | URI  | Method | Description |
 | ------------- | ------------- | ------------- |
-| `/search/<topic>`  | `GET`  | Content Cell  |
-| `/info/<itemNumber>`  | `GET`  | Content Cell  |
-| `/purchase/<itemNumber>`  | `POST`  | Content Cell  |
+| `/search/<topic>`  | `GET`  | search for books by their `<topic>`, returns all matching books `itemNumber` and `tittle`.   |
+| `/info/<itemNumber>`  | `GET`  | get information about a book by its `<itemNumber>`, returns the matching book `tittle`, `quantity` and `price` if the book exixts or a `message` descriping the problem.    |
+| `/purchase/<itemNumber>`  | `POST`  | buy a book by its `<itemNumber>`, in a succsesful operation returns a `success` message, otherwise returns a message stating the problem.   |
 
 
   **Admin APIs**
   
   | URI  | Method | Description |
 | ------------- | ------------- | ------------- |
-| `/orders`  | `GET`  | Content Cell  |
-| `/update/<itemNumber>`  | `PATCH`  | Content Cell  |
+| `/orders`  | `GET`  | returns all the successful orders.  |
+| `/update/<itemNumber>`  | `PATCH`  | change quantity or price or both for the specified book, new quantity or new price or both should be sent through request body in JSON format.  |
 
 
 
