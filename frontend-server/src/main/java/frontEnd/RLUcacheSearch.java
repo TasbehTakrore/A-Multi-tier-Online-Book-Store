@@ -2,17 +2,17 @@ package frontEnd;
 
 import java.util.HashMap;
 
-public class RLUcacheInfo {
-	 private HashMap<Integer, nodeInfo> map;
+public class RLUcacheSearch {
+	 private HashMap<String, nodeSearch> map;
 	    private int capacity, count;
-	    private nodeInfo head, tail;
+	    private nodeSearch head, tail;
 	  
-	    public RLUcacheInfo(int capacity)
+	    public RLUcacheSearch(int capacity)
 	    {
 	        this.capacity = capacity;
 	        map = new HashMap<>();
-	        head = new nodeInfo(-1, null);
-	        tail = new nodeInfo(-1, null);
+	        head = new nodeSearch("", null);
+	        tail = new nodeSearch("", null);
 	        head.next = tail;
 	        tail.pre = head;
 	        head.pre = null;
@@ -20,13 +20,13 @@ public class RLUcacheInfo {
 	        count = 0;
 	    }
 	  
-	    public void deletenode(nodeInfo node)
+	    public void deletenode(nodeSearch node)
 	    {
 	        node.pre.next = node.next;
 	        node.next.pre = node.pre;
 	    }
 	  
-	    public void addToHead(nodeInfo node)
+	    public void addToHead(nodeSearch node)
 	    {
 	        node.next = head.next;
 	        node.next.pre = node;
@@ -35,36 +35,36 @@ public class RLUcacheInfo {
 	    }
 	  
 	    
-	    public Book get(int key)
+	    public Book[] get(String key)
 	    {
 	        if (map.get(key) != null) {
-	            nodeInfo node = map.get(key);
-	            Book result = node.book;
+	            nodeSearch node = map.get(key);
+	            Book[] result = node.book;
 	            deletenode(node);
 	            addToHead(node);
-	            System.out.println("Get the book from Info cach: " + result.getTitle()
+	            System.out.println("Get the Topic from Search cach "
 	                               + " for the key: " + key);
 	            return result;
 	        }
-	        System.out.println("Did not get any book in Info cach"
+	        System.out.println("Did not get any book"
 	                           + " for the key: " + key);
 	        return null;
 	    }
 	  
 	    
-	    public void set(int key, Book book)
+	    public void set(String key, Book[] book)
 	    {
-	        System.out.println("Going to set the (key, "
-	                           + "book) : (" + key + ", "
-	                           + book.getTitle() + ") to Info cach");
+	        System.out.println("Going to set the (Topic):"
+	                           + key + " to Search cach ");
+	                           
 	        if (map.get(key) != null) {
-	            nodeInfo node = map.get(key);
+	            nodeSearch node = map.get(key);
 	            node.book = book;
 	            deletenode(node);
 	            addToHead(node);
 	        }
 	        else {
-	            nodeInfo node = new nodeInfo(key, book);
+	            nodeSearch node = new nodeSearch(key, book);
 	            map.put(key, node);
 	            if (count < capacity) {
 	                count++;

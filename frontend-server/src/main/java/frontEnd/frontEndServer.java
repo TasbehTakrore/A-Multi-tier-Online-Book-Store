@@ -18,15 +18,20 @@ public class frontEndServer {
 	public static String ORDER_IP_ADDRESS="localhost";
 	public static String ORDER_PORT="4100";
 	public static RLUcacheInfo RLUcacheForInfo = new RLUcacheInfo(5);
-	
+	public static RLUcacheSearch RLUcacheForSearch = new RLUcacheSearch(1);
 	
 	public static void main(String[] args) {
 		port(4000);
 		
 		get("search/:topic", (req,res)->{
 			 res.type("application/json");
-			 logMessages.printlogMessage(req,"search/"+req.params(":topic"));           
-			 Book[] outputBooks=handleRequest.search(req.params(":topic"));
+			 logMessages.printlogMessage(req,"search/"+req.params(":topic"));
+			 Book[] outputBooks;
+			 outputBooks= RLUcacheForSearch.get(req.params(":topic")); // // get books from RUL Search cache.
+			 if(outputBooks==null)  // If books is not in the cache, get it from catalog server, and set in cache.
+				 {outputBooks=handleRequest.search(req.params(":topic"));
+				 RLUcacheForSearch.set(req.params(":topic"),outputBooks);
+				 }
 			return StandardResponse.BookSearchResponse(outputBooks);
            
         });
@@ -42,8 +47,8 @@ public class frontEndServer {
 				 return new StandardResponse("you should enter item id as an integer").MessageResponse();
 			 }
 			 Book output;
-			 output= RLUcacheForInfo.get(itemNumber); // get book from RUL cache
-			 if(output == null) // If book is not in the cache, get it from catalog server, and set in cache
+			 output= RLUcacheForInfo.get(itemNumber); // get book from RUL Info cache.
+			 if(output == null) // If book is not in the cache, get it from catalog server, and set in cache.
 			 { 	output=handleRequest.info(itemNumber);
 			 	RLUcacheForInfo.set(itemNumber,output);
 			 }
