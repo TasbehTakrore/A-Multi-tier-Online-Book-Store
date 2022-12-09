@@ -75,6 +75,19 @@ public class frontEndServer {
 		     Book output=handleRequest.purchase(itemNumber);
 			 return StandardResponse.BookPurchaseResponse(output);
        });
+		
+		
+		delete("ACK/:itemNumber", (req,res)->{
+			Book result;
+			result = RLUcacheForInfo.get(Integer.parseInt(req.params(":itemNumber")));
+			if(result != null) {
+				// if result != null , this mean the cache has this value, so we need to remove it,
+				// because we send (get) to RLU cache, now the node in head
+				RLUcacheForInfo.removeHead(Integer.parseInt(req.params(":itemNumber")));
+			}
+			return "";
+      });
+		
 
 	}
 

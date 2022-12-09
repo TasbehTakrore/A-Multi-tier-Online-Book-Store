@@ -77,5 +77,14 @@ public class RLUcacheInfo {
 	            }
 	        }
 	    }
+	    public void removeHead(int key) {
+	    	
+	    	
+	    	nodeInfo node = map.get(key);
+	    	deletenode(node); // here.. delete head
+	    	map.remove(key);
+	    	count --;
+	    	
+	    }
 	}
 	  
