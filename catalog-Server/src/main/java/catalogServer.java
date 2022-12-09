@@ -20,7 +20,10 @@ import org.json.*;
 
 public class catalogServer {
 	
+	public static String CATALOG_2_IP_ADDRESS="localhost";
+	public static String CATALOG_2_PORT="4568";
 
+	
 	public static services catSer = new services();
 			
 	    public static void main(String[] args) throws IOException, CsvException {
@@ -46,6 +49,14 @@ public class catalogServer {
 	        	res.type("application/json");
 	            logMessages.printlogMessage(req,"update/"+req.params(":itemNumber"));
 	        	Book book = jsonTransformer.convertGsonToObj(req.body());
+	        	
+//	        	//This is true statement.. when we create real IP, replace text with catalog2 IP..
+//	        	if( ! req.ip().equals("catalog 2 IP"))  
+//	        		consistency.UpdateOtherServer(book);
+	        	
+	        
+	        	consistency.UpdateOtherServer(book); // we need to remove it.. now this here only to test consistency class.
+	        	
 	        	book.setItemNumber(Integer.parseInt(req.params(":itemNumber")));
 	        	book = catSer.updateIteamQuantity(book);
 	           
