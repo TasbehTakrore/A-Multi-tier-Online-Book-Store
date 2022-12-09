@@ -2,12 +2,12 @@ package frontEnd;
 
 import java.util.HashMap;
 
-public class RLUcacheSearch {
+public class LRUcacheSearch {
 	 private HashMap<String, nodeSearch> map;
 	    private int capacity, count;
 	    private nodeSearch head, tail;
 	  
-	    public RLUcacheSearch(int capacity)
+	    public LRUcacheSearch(int capacity)
 	    {
 	        this.capacity = capacity;
 	        map = new HashMap<>();

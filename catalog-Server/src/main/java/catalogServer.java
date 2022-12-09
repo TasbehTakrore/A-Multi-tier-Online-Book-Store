@@ -20,17 +20,17 @@ import org.json.*;
 
 public class catalogServer {
 	
-	public static String CATALOG_2_IP_ADDRESS="localhost";
-	public static String FRONTEND_IP_ADDRESS="localhost";
+	public static String CATALOG_2_IP_ADDRESS=System.getenv("CATALOG_2_IP_ADDRESS");
+	public static String FRONTEND_IP_ADDRESS=System.getenv("FRONTEND_IP_ADDRESS");
 
-	public static String CATALOG_2_PORT="4568";
-	public static String FRONTEND_PORT="4000";
+	public static String CATALOG_2_PORT=System.getenv("CATALOG_2_PORT");
+	public static String FRONTEND_PORT=System.getenv("FRONTEND_PORT");
 
 	
 	public static services catSer = new services();
 			
 	    public static void main(String[] args) throws IOException, CsvException {
-	    	port(4567);
+	    	port(4000);
 	    	
 	        get("query/topic/:topic", (req,res)->{
 	            res.type("application/json");

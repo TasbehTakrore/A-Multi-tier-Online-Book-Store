@@ -13,14 +13,13 @@ import com.google.gson.JsonParser;
 public class frontEndServer {
 
 	public static Service handleRequest=new Service();
-	public static String CATALOG_IP_ADDRESS="localhost";
-	public static String CATALOG_PORT="4567";
-	//public static String CATALOG_PORT="4568";
-
-	public static String ORDER_IP_ADDRESS="localhost";
-	public static String ORDER_PORT="4100";
-	public static RLUcacheInfo RLUcacheForInfo = new RLUcacheInfo(5);
-	public static RLUcacheSearch RLUcacheForSearch = new RLUcacheSearch(1);
+	
+	public static String CATALOG_IP_ADDRESS;
+	public static String CATALOG_PORT;
+	public static String ORDER_IP_ADDRESS;
+	public static String ORDER_PORT;
+	public static LRUcacheInfo RLUcacheForInfo = new LRUcacheInfo(5);
+	public static LRUcacheSearch RLUcacheForSearch = new LRUcacheSearch(1);
 	
 	public static void main(String[] args) {
 		port(4000);

@@ -2,12 +2,12 @@ package frontEnd;
 
 import java.util.HashMap;
 
-public class RLUcacheInfo {
+public class LRUcacheInfo {
 	 private HashMap<Integer, nodeInfo> map;
 	    private int capacity, count;
 	    private nodeInfo head, tail;
 	  
-	    public RLUcacheInfo(int capacity)
+	    public LRUcacheInfo(int capacity)
 	    {
 	        this.capacity = capacity;
 	        map = new HashMap<>();
