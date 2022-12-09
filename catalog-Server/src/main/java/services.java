@@ -60,17 +60,25 @@ public class services {
 	  Book searchForItem(String itemNumber) throws IOException, CsvException {
 		 r =  data.getallData();
 
+  try {
 		 for( String[] x: r) {
 
 			 if(x[4].equals(itemNumber)) { // if item exist
 				 book = new Book(x[0],Integer.parseInt(x[1]),Integer.parseInt(x[2]),x[3],Integer.parseInt(x[4]),"");
-
+				 System.out.println("1");
 				 return book;
 			 }
-		 			   
-			 book = new Book();
-			 book.setMessage("This item does not exist!");
+
 		 } 
+
+
+		 book = new Book();
+		 book.setMessage("This item does not exist!");
+		 System.out.println(book.getMessage());
+	}catch(Exception e) {
+		System.out.println("**"+e);
+	}
+
 		 return book;
 	}
 

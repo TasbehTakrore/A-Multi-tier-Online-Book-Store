@@ -17,6 +17,7 @@ public class frontEndServer {
 	public static String CATALOG_PORT="4567";
 	public static String ORDER_IP_ADDRESS="localhost";
 	public static String ORDER_PORT="4100";
+	public static RLUcacheInfo RLUcacheForInfo = new RLUcacheInfo(5);
 	
 	
 	public static void main(String[] args) {
@@ -40,7 +41,12 @@ public class frontEndServer {
 				 
 				 return new StandardResponse("you should enter item id as an integer").MessageResponse();
 			 }
-			 Book output=handleRequest.info(itemNumber);
+			 Book output;
+			 output= RLUcacheForInfo.get(itemNumber); // get book from RUL cache
+			 if(output == null) // If book is not in the cache, get it from catalog server, and set in cache
+			 { 	output=handleRequest.info(itemNumber);
+			 	RLUcacheForInfo.set(itemNumber,output);
+			 }
 			
            return StandardResponse.BookInfoResponse(output);
        });
