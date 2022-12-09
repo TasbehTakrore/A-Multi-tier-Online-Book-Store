@@ -5,12 +5,6 @@ import static spark.Spark.port;
 
 import com.google.gson.Gson;
 
-
-
-
-
-
-
 public class OrderServer {
 	
 	public static Services handleRequest=new Services();
@@ -32,6 +26,7 @@ public class OrderServer {
 				 
 				 return new StandardResponse("you should enter item id as an integer").MessageResponse();
 			 }
+			 loadBalance.setCatalogServerIPAndPort();
 			 Order outputOrder=handleRequest.purchase(itemNumber);
 			 return StandardResponse.FormatPurchaseResponse(outputOrder);
         });
