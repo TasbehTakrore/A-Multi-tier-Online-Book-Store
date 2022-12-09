@@ -41,7 +41,41 @@ public class consistency {
 			}
 
 		}
+	
+	public static void ACKtoRemoveFromCach(String key) throws URISyntaxException {
+	
+		HttpRequest request=null;
+		HttpClient client=null;
+		HttpResponse<String> response=null;
+		
+		URI frontEndURI=new URI("http://"+catalogServer.FRONTEND_IP_ADDRESS+":"+catalogServer.FRONTEND_PORT+"/ACK/"+key);
+		   
+		try {
+		
+			request = HttpRequest.newBuilder()
+					  .uri(frontEndURI)
+					  .DELETE()
+					  .build();
+			
+			
+			client=HttpClient.newHttpClient();
+			
+			response = client.send(request, BodyHandlers.ofString());
+			
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			
+			e.printStackTrace();
+		}
+
 	}
+		
+	}
+	
+
 	
 
 
