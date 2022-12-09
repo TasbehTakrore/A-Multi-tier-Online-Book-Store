@@ -20,7 +20,12 @@ import org.json.*;
 
 public class catalogServer {
 	
-// catalog server 2
+// catalog server # 2
+	
+	public static String CATALOG_1_IP_ADDRESS="localhost";
+	public static String CATALOG_1_PORT="4567";
+	public static String FRONTEND_IP_ADDRESS="localhost";
+	public static String FRONTEND_PORT="4000";
 	
 	public static services catSer = new services();
 			
@@ -49,6 +54,16 @@ public class catalogServer {
 	            logMessages.printlogMessage(req,"update/"+req.params(":itemNumber"));
 	        	Book book = jsonTransformer.convertGsonToObj(req.body());
 	        	book.setItemNumber(Integer.parseInt(req.params(":itemNumber")));
+	        	
+	        	// send ACK to frontEnd server to remove data..
+	        	consistency.ACKtoRemoveFromCach(req.params(":itemNumber"));
+	        	
+	        	if(book.getMessage().equals("")) {
+        			book.setMessage("fromOtherCatalog");
+        			consistency.UpdateOtherServer(book);
+        		}
+	        	
+
 	        	book = catSer.updateIteamQuantity(book);
 	           
 	           return jsonTransformer.convertObjToGson(book);

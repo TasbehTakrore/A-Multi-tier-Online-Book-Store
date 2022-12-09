@@ -1,4 +1,5 @@
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class Book {
 	@Override
@@ -74,6 +75,13 @@ public class Book {
 		this.itemNumber = itemNumber;
 	}
 	
+	public String toJson() {
+		Gson parseJson = new GsonBuilder().
+                setPrettyPrinting().
+                create(); 
+
+return parseJson.toJson(this, getClass());
+	}
 	
 
 }
