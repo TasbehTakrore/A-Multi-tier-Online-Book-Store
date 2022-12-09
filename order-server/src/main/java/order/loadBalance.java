@@ -22,7 +22,4 @@ public class loadBalance {
 			countCatalog = (countCatalog+1)%6;
 		}
 	}
-
-	
-
 }

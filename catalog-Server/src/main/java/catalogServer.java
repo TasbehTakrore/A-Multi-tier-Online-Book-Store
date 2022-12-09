@@ -52,15 +52,15 @@ public class catalogServer {
 	        	res.type("application/json");
 	            logMessages.printlogMessage(req,"update/"+req.params(":itemNumber"));
 	        	Book book = jsonTransformer.convertGsonToObj(req.body());
-	        	
+
 	        	// send ACK to frontEnd server to remove data..
 	        	consistency.ACKtoRemoveFromCach(req.params(":itemNumber"));
 
-	        	
-//	        	//This is true statement.. when we create real IP, replace text with catalog2 IP..
-//	        	if( ! req.ip().equals("catalog 2 IP"))  
-//	        		consistency.UpdateOtherServer(book);
-	        	
+	        	if(book.getMessage().equals("")) {
+        			book.setMessage("fromOtherCatalog");
+        			consistency.UpdateOtherServer(book);
+        		}
+	
 	        	consistency.UpdateOtherServer(book); // we need to remove it.. now this here only to test consistency class.
 	        	
 	        	book.setItemNumber(Integer.parseInt(req.params(":itemNumber")));
