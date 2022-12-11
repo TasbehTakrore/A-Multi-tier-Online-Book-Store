@@ -25,12 +25,16 @@ public class catalogServer {
 
 	public static String CATALOG_2_PORT=System.getenv("CATALOG_2_PORT");
 	public static String FRONTEND_PORT=System.getenv("FRONTEND_PORT");
+	
+	public static int MY_PORT=Integer.parseInt(System.getenv("MY_PORT"));
+	
+	
 
 	
 	public static services catSer = new services();
 			
 	    public static void main(String[] args) throws IOException, CsvException {
-	    	port(4000);
+	    	port(MY_PORT);
 	    	
 	        get("query/topic/:topic", (req,res)->{
 	            res.type("application/json");
@@ -52,18 +56,25 @@ public class catalogServer {
 	        	res.type("application/json");
 	            logMessages.printlogMessage(req,"update/"+req.params(":itemNumber"));
 	        	Book book = jsonTransformer.convertGsonToObj(req.body());
-
-	        	// send ACK to frontEnd server to remove data..
-	        	consistency.ACKtoRemoveFromCach(req.params(":itemNumber"));
-
-	        	if(book.getMessage().equals("")) {
-        			book.setMessage("fromOtherCatalog");
+	        	book.setItemNumber(Integer.parseInt(req.params(":itemNumber")));
+                
+	        	
+	        	if(book.getMessage() == null) {
+	        		// send ACK to frontEnd server to remove data..
+		        	consistency.ACKtoRemoveFromCach(req.params(":itemNumber"));
+	        		book.setMessage("fromOtherCatalog");
         			consistency.UpdateOtherServer(book);
+	        	}
+	        	else if(book.getMessage().equals("")) {
+	        		// send ACK to frontEnd server to remove data..
+		        	consistency.ACKtoRemoveFromCach(req.params(":itemNumber"));
+	        		book.setMessage("fromOtherCatalog");
+        			consistency.UpdateOtherServer(book);
+		        	
         		}
 	
-	        	consistency.UpdateOtherServer(book); // we need to remove it.. now this here only to test consistency class.
 	        	
-	        	book.setItemNumber(Integer.parseInt(req.params(":itemNumber")));
+	        	
 	        	book = catSer.updateIteamQuantity(book);
 	           
 	           return jsonTransformer.convertObjToGson(book);
