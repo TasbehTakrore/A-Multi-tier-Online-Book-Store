@@ -17,7 +17,7 @@ this store consists of 4 RESTFull microservices each one of them can run in a di
 ## Implementation
 this project was implemented using **java**, **maven**  and **spark framework** which supports implementing microservices, in pom.xml for each project you can find all the needed dependencies, spark dependency and Gson dependency for JSON formatting are in common for all servises, in catalog-server and order-server a dependency for opencsv which is a CSV parser library was added, since a CSV file was used as a database for those two sevices.
 
-//other things should be added about how each service works.
+
 
 
 
